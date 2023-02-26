@@ -56,7 +56,7 @@ function BuyingProduct() {
               Step 5:
             </Text>
             <Text size="sm" color="blueGray.5">
-              Fill up the address. (Note: Your address will be saved and can be
+              Fill up the address (Note: Your address will be saved and can be
               used the next time you check out). Then place your order.
             </Text>
           </Box>
