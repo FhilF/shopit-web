@@ -40,7 +40,7 @@ function DialogEmailVerificationSent({
           </Text>
 
           <Text color="blueGray.4" size="sm" align="center">
-            Sign in to your yeti account to resend the verification link.
+            Sign in to your Shop It account to resend the verification link.
           </Text>
         </Flex>
       </Box>

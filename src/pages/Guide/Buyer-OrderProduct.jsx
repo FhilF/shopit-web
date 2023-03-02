@@ -1,12 +1,12 @@
 import { Accordion, Box, Stack, Text } from "@mantine/core";
 import React from "react";
 
-function BuyingProduct() {
+function OrderProduct() {
   return (
-    <Accordion.Item value="customization">
+    <Accordion.Item value="orderProduct">
       <Accordion.Control>
         <Text weight={600} color="blueGray.6">
-          Ordering Product
+          Order Product
         </Text>
       </Accordion.Control>
       <Accordion.Panel>
@@ -16,7 +16,7 @@ function BuyingProduct() {
               Step 1:
             </Text>
             <Text size="sm" color="blueGray.5">
-              Sign in to your account first.
+              Sign in to your account.
             </Text>
           </Box>
 
@@ -56,8 +56,7 @@ function BuyingProduct() {
               Step 5:
             </Text>
             <Text size="sm" color="blueGray.5">
-              Fill up the address (Note: Your address will be saved and can be
-              used the next time you check out). Then place your order.
+              Fill up the address and then place your order.
             </Text>
           </Box>
         </Stack>
@@ -66,4 +65,4 @@ function BuyingProduct() {
   );
 }
 
-export default BuyingProduct;
+export default OrderProduct;

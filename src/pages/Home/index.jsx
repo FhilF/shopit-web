@@ -15,13 +15,18 @@ import Department from "components/Department";
 import React, { useEffect, useState } from "react";
 import ShopItHero from "assets/images/shop-it-hero.png";
 import ShopItHeroWhiteBg from "assets/images/shop-it-hero-wbg.png";
+import { useAuth } from "utils/authProvider";
 
 function Home(props) {
+  const { sessionedUserData } = useAuth();
   const { departments, setOpenDeptDrawer } = props;
   return (
     <Box>
       <Stack mt="sm">
-        <Hero />
+        <Hero
+          sessionedUserData={sessionedUserData}
+          setOpenDeptDrawer={setOpenDeptDrawer}
+        />
         <Departments
           departments={departments}
           setOpenDeptDrawer={setOpenDeptDrawer}
@@ -31,7 +36,7 @@ function Home(props) {
   );
 }
 
-const Hero = (props) => {
+const Hero = ({ sessionedUserData, setOpenDeptDrawer }) => {
   return (
     <Box>
       <Box sx={(theme) => ({ position: "relative" })}>
@@ -47,10 +52,16 @@ const Hero = (props) => {
         >
           <Flex justify="center" align="center" sx={{ height: "100%" }}>
             <Group mt={150}>
-              <Button variant="subtle" color="dark.4" size="md">
-                Register
-              </Button>
-              <Button color="yellow.8" size="md">
+              {!sessionedUserData && (
+                <Button variant="subtle" color="dark.4" size="md">
+                  Register
+                </Button>
+              )}
+              <Button
+                color="yellow.8"
+                size="md"
+                onClick={() => setOpenDeptDrawer(true)}
+              >
                 Shop Now!
               </Button>
             </Group>

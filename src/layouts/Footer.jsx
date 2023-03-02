@@ -15,6 +15,7 @@ import {
   IconLink,
   IconWorld,
 } from "@tabler/icons";
+import { isProduction } from "config";
 import React from "react";
 import FooterLogoImage from "./FooterLogoImage";
 
@@ -46,18 +47,33 @@ function Footer() {
               <FooterLogoImage />
             </Grid.Col>
             <Grid.Col className="footer-top-item" span={12} md={4}>
-              <Stack spacing={4}>
-                <Text size={15} weight={600}>
-                  Help
-                </Text>
-                <UnstyledButton
-                  className="footer-link"
-                  color="yellow.7"
-                  component="a"
-                  href="/faqs"
-                >
-                  <Text size="sm">FAQs</Text>
-                </UnstyledButton>
+              <Stack spacing="md">
+                <Stack spacing={4}>
+                  <Text size={15} weight={600}>
+                    Shop It Links
+                  </Text>
+                  <UnstyledButton
+                    className="footer-link"
+                    color="yellow.7"
+                    component="a"
+                    href={isProduction ? "" : "http://localhost:3001/"}
+                  >
+                    <Text size="sm">Seller Portal</Text>
+                  </UnstyledButton>
+                </Stack>
+                <Stack spacing={4}>
+                  <Text size={15} weight={600}>
+                    Help
+                  </Text>
+                  <UnstyledButton
+                    className="footer-link"
+                    color="yellow.7"
+                    component="a"
+                    href="/guide"
+                  >
+                    <Text size="sm">Shop It Guide</Text>
+                  </UnstyledButton>
+                </Stack>
               </Stack>
             </Grid.Col>
             <Grid.Col className="footer-top-item" span={12} md={4}>

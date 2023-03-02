@@ -18,11 +18,7 @@ root.render(
     <AuthProvider>
       <AxiosInterceptor>
         {/* <Provider store={store}> */}
-        <MantineProvider
-          withGlobalStyles
-          withNormalizeCSS
-          theme={theme}
-        >
+        <MantineProvider withGlobalStyles withNormalizeCSS theme={theme}>
           <NotificationsProvider>
             <App />
           </NotificationsProvider>

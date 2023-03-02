@@ -1,5 +1,4 @@
 import axios from "axios";
-import { userSessionStorageName } from "config";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -16,24 +15,15 @@ export const AuthProvider = ({ children }) => {
 
   const getSessionedUser = (setIsPageLoading) => {
     axios
-      .get(`api/user`, {
+      .get(`auth/sessioned_user`, {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res);
         const sessionedData = res.data.sessionedUser;
         if (sessionedData) {
           setSessionedUserData(sessionedData);
         }
         setIsPageLoading(false);
-
-        // if (
-        //   sessionedData &&
-        //   sessionedData.provider === "google" &&
-        //   !sessionedData.isUserUpdated
-        // ) {
-        //   navigate("/test");
-        // }
       })
       .catch((err) => {
         setIsPageLoading(false);
@@ -44,8 +34,6 @@ export const AuthProvider = ({ children }) => {
     axios
       .post("auth/signin", form.values, {
         withCredentials: true,
-        headers: { "Content-Type": "application/json" },
-        // credentials: "same-origin",
       })
       .then((res) => {
         const user = res.data.user;
@@ -84,7 +72,6 @@ export const AuthProvider = ({ children }) => {
         withCredentials: true,
       })
       .then((res) => {
-        localStorage.removeItem(userSessionStorageName);
         setSessionedUserData(null);
         showNotification({
           title: "Signed out!",
@@ -113,6 +100,7 @@ export const AuthProvider = ({ children }) => {
           title: "Session Expired!",
           color: "yellow.8",
         });
+        console.log("signedout");
         navigate("/", { replace: true });
       })
       .catch((err) => {

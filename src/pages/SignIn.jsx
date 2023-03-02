@@ -12,6 +12,7 @@ import {
   Stack,
   Divider,
   UnstyledButton,
+  Flex,
 } from "@mantine/core";
 
 import { useForm, zodResolver } from "@mantine/form";
@@ -23,9 +24,10 @@ import {
   updateNotification,
   cleanNotifications,
 } from "@mantine/notifications";
-import { userSessionStorageName } from "config";
 import { useAuth } from "utils/authProvider";
 import { z } from "zod";
+import { apiServer } from "config";
+import GoogleIcon from "assets/images/google.png";
 const schema = z.object({
   username: z.string().min(1, { message: "Enter a username" }),
   password: z.string().min(1, { message: "Enter a password" }),
@@ -51,7 +53,7 @@ function SignIn(props) {
 
   const signInGoogle = () => {
     window.open(
-      `http://localhost:5000/auth/google?origin=${window.location.origin}`,
+      `${apiServer}/auth/google?origin=${window.location.origin}`,
       "_self"
     );
   };
@@ -122,9 +124,10 @@ function SignIn(props) {
                   {...form.getInputProps("password")}
                 />
               </Stack>
-              <Stack spacing="xl" mt={30}>
+              <Stack spacing="md" mt={30}>
                 <Button
                   disabled={isFormLoading}
+                  color="yellow.8"
                   onClick={() => signInAccount()}
                 >
                   Sign in
@@ -135,6 +138,7 @@ function SignIn(props) {
                   onClick={() => {
                     signInGoogle();
                   }}
+                  leftIcon={<Flex p={4} bg="#ffffff"><Image height={15} src={GoogleIcon} /></Flex>}
                 >
                   Sign in with Google
                 </Button>

@@ -36,6 +36,7 @@ import clsx from "clsx";
 
 import useStyles from "styles/js/layouts/global/header";
 import { showNotification } from "@mantine/notifications";
+import { isProduction } from "config";
 function Index(props) {
   const navigate = useNavigate();
   const {
@@ -113,6 +114,20 @@ function Index(props) {
               </UnstyledButton>
             </Group>
             <Group spacing={4} className="menu">
+              {(!sessionedUserData ||
+                (sessionedUserData &&
+                  sessionedUserData.isEmailVerified &&
+                  sessionedUserData.isUserUpdated)) && (
+                <UnstyledButton
+                  component="a"
+                  className="items"
+                  href={isProduction ? "" : "http://localhost:3001/"}
+                >
+                  <Text weight={600} size="sm" color="yellow.8">
+                    Seller Portal
+                  </Text>
+                </UnstyledButton>
+              )}
               <Link className="items" to="/">
                 <Text weight={600} size="sm">
                   Home

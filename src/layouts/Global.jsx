@@ -24,7 +24,7 @@ function Global(props) {
           color="yellow.8"
           radius={0}
           component="a"
-          href="/tester-guide"
+          href="/guide"
           sx={{
             height: "110px",
             paddingLeft: "1px",

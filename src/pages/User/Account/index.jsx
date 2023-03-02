@@ -24,13 +24,14 @@ import {
 } from "utils/Schema/UserSchema";
 
 function Profile(props) {
-  const { } = props;
-  const { updateSessionedUser, sessionedUserData, setSessionedUserData } = useAuth();
+  const {} = props;
+  const { updateSessionedUser, sessionedUserData, setSessionedUserData } =
+    useAuth();
   const [isFormLoading, setIsFormLoading] = useState(false);
   const [pTempImgUrl, setPTempImgUrl] = useState(null);
   useEffect(() => {
     axios
-      .get(`api/user`, {
+      .get(`auth/sessioned_user`, {
         withCredentials: true,
       })
       .then((res) => {
