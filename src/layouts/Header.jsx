@@ -121,7 +121,7 @@ function Index(props) {
                 <UnstyledButton
                   component="a"
                   className="items"
-                  href={isProduction ? "" : "http://localhost:3001/"}
+                  href={isProduction ? "https://seller.shopit-demo.com/" : "http://localhost:3001/"}
                 >
                   <Text weight={600} size="sm" color="yellow.8">
                     Seller Portal

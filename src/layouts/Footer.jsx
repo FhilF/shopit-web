@@ -56,7 +56,7 @@ function Footer() {
                     className="footer-link"
                     color="yellow.7"
                     component="a"
-                    href={isProduction ? "" : "http://localhost:3001/"}
+                    href={isProduction ? "https://seller.shopit-demo.com" : "http://localhost:3001/"}
                   >
                     <Text size="sm">Seller Portal</Text>
                   </UnstyledButton>
