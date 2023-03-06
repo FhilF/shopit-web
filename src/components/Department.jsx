@@ -17,7 +17,14 @@ function Department(props) {
     <UnstyledButton
       sx={(theme) => ({
         width: "12%",
-        [theme.fn.smallerThan("sm")]: { width: "100%" },
+        [theme.fn.smallerThan("sm")]: {
+          width: "100%",
+          ".dept-image": {
+            width: "40px",
+            height: "40px",
+            minWidth:"40px"
+          },
+        },
         [theme.fn.largerThan("xl")]: { width: "13%" },
       })}
       component="a"
@@ -40,7 +47,7 @@ function Department(props) {
         direction="column"
         wrap="wrap"
       >
-        <Avatar src={item.imageUrl} size={70} />
+        <Avatar src={item.imageUrl} size={70} className="dept-image" />
         <Text size="sm" color="dark.4" align="center">
           {item.name}
         </Text>

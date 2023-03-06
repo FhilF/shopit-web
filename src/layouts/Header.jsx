@@ -5,6 +5,7 @@ import {
   Box,
   Burger,
   Button,
+  Divider,
   Drawer,
   Group,
   Indicator,
@@ -23,7 +24,10 @@ import {
   IconArrowLeft,
   IconChecklist,
   IconChevronRight,
+  IconDoorEnter,
   IconDoorExit,
+  IconHome,
+  IconList,
   IconPackage,
   IconShoppingCart,
   IconUser,
@@ -49,7 +53,7 @@ function Index(props) {
 
   const deptNavRef = useRef(false);
 
-  const [open, setOpen] = useState(false);
+  const [openNav, setOpenNav] = useState(false);
   const { classes } = useStyles();
 
   const ShoppingCart = () => {
@@ -91,10 +95,11 @@ function Index(props) {
           <Group position="apart" className="inner-nav" sx={() => ({})}>
             <Group>
               <Burger
-                opened={open}
-                onClick={() => setOpen((val) => !val)}
+                opened={openNav}
+                onClick={() => setOpenNav((val) => !val)}
                 className="burger"
                 size="sm"
+                color="white"
               />
               <UnstyledButton
                 component="a"
@@ -113,6 +118,25 @@ function Index(props) {
                 </Group>
               </UnstyledButton>
             </Group>
+            <Group spacing={4} className="menu-m">
+              {!sessionedUserData && (
+                <a
+                  href=" #"
+                  className="items"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigate("/sign-in");
+                  }}
+                >
+                  Sign in
+                </a>
+              )}
+
+              {(!sessionedUserData ||
+                (sessionedUserData &&
+                  sessionedUserData.isEmailVerified &&
+                  sessionedUserData.isUserUpdated)) && <ShoppingCart />}
+            </Group>
             <Group spacing={4} className="menu">
               {(!sessionedUserData ||
                 (sessionedUserData &&
@@ -121,7 +145,11 @@ function Index(props) {
                 <UnstyledButton
                   component="a"
                   className="items"
-                  href={isProduction ? "https://seller.shopit-demo.com/" : "http://localhost:3001/"}
+                  href={
+                    isProduction
+                      ? "https://seller.shopit-demo.com/"
+                      : "http://localhost:3001/"
+                  }
                 >
                   <Text weight={600} size="sm" color="yellow.8">
                     Seller Portal
@@ -206,15 +234,26 @@ function Index(props) {
           </Group>
         </Box>
       </Box>
-
       <DepartmentDrawer
         classes={classes}
-        setOpen={setOpen}
+        setOpenNav={setOpenNav}
         setOpenDeptDrawer={setOpenDeptDrawer}
         openDeptDrawer={openDeptDrawer}
         deptNavRef={deptNavRef}
         departments={departments}
         navigate={navigate}
+      />
+      <BurgerDrawer
+        classes={classes}
+        setOpenNav={setOpenNav}
+        openNav={openNav}
+        setOpenDeptDrawer={setOpenDeptDrawer}
+        openDeptDrawer={openDeptDrawer}
+        deptNavRef={deptNavRef}
+        departments={departments}
+        navigate={navigate}
+        sessionedUserData={sessionedUserData}
+        signout={signout}
       />
     </Box>
   );
@@ -223,7 +262,7 @@ function Index(props) {
 const DepartmentDrawer = (props) => {
   const {
     classes,
-    setOpen,
+    setOpenNav,
     setOpenDeptDrawer,
     openDeptDrawer,
     deptNavRef,
@@ -248,7 +287,7 @@ const DepartmentDrawer = (props) => {
                   <ActionIcon
                     onClick={() => {
                       setOpenDeptDrawer(false);
-                      setOpen(true);
+                      setOpenNav(true);
                     }}
                   >
                     <IconArrowLeft />
@@ -314,106 +353,227 @@ const DepartmentDrawer = (props) => {
 const BurgerDrawer = (props) => {
   const {
     classes,
-    open,
-    setOpen,
+    openNav,
+    setOpenNav,
     sessionedUserData,
     setOpenDeptDrawer,
     deptNavRef,
     navigate,
+    signout,
   } = props;
   return (
     <Drawer
+      lockScroll={true}
       className={classes.drawer}
-      opened={open}
-      onClose={() => setOpen((val) => !val)}
+      opened={openNav}
+      onClose={() => setOpenNav((val) => !val)}
       title=""
       size="lg"
       withCloseButton={false}
     >
-      <Box pb={10} className="drawer-header">
-        <Group py={20} position="apart">
-          <img
-            className="logo"
-            src={process.env.PUBLIC_URL + "/shop-it-logo.png"}
-            alt="shop-it-logo"
-          />
+      <Box sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
+        <Box sx={{ flex: 0 }} pb={10} className="drawer-header">
+          <Group pt={20} pb={30} position="apart">
+            <UnstyledButton component="a" href="/">
+              <img
+                className="logo"
+                src={process.env.PUBLIC_URL + "/shop-it-logo.png"}
+                alt="shop-it-logo"
+              />
+            </UnstyledButton>
 
-          <ActionIcon
-            onClick={() => {
-              setOpen(false);
-            }}
-          >
-            <IconX />
-          </ActionIcon>
-        </Group>
-        <Box pt={4}>
+            <ActionIcon
+              onClick={() => {
+                setOpenNav(false);
+              }}
+            >
+              <IconX />
+            </ActionIcon>
+          </Group>
+        </Box>
+        <Box sx={{ flex: 1 }} className="drawer-menu">
+          <Stack spacing="xl">
+            <Stack spacing="lg">
+              <UnstyledButton
+                className="items"
+                onClick={() => {
+                  setOpenNav(false);
+                  navigate("/");
+                }}
+              >
+                <Group spacing="sm">
+                  <IconHome className="menu-item-icon" />
+                  <Text weight={600} size={15} color="blueGray.8">
+                    Home
+                  </Text>
+                </Group>
+              </UnstyledButton>
+              <Box
+                className="items"
+                sx={() => ({ cursor: "pointer" })}
+                onClick={() => {
+                  setOpenNav(false);
+                  setOpenDeptDrawer(true);
+                  deptNavRef.current = true;
+                }}
+              >
+                <Group position="apart">
+                  <Group spacing="sm">
+                    <IconList className="menu-item-icon" />
+                    <Text weight={600} size={15} color="blueGray.8">
+                      Departments
+                    </Text>
+                  </Group>
+                  <Text color="dark.6" sx={() => ({ lineHeight: 0 })}>
+                    <IconChevronRight />
+                  </Text>
+                </Group>
+              </Box>
+            </Stack>
+            {sessionedUserData && (
+              <>
+                <Divider />
+                <Stack spacing="lg">
+                  <UnstyledButton
+                    className="items"
+                    component="a"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setOpenNav(false);
+                      navigate("/user/account/profile");
+                    }}
+                  >
+                    <Group spacing="sm">
+                      <IconUserCircle className="menu-item-icon" />
+                      <Text weight={600} size={15} color="blueGray.8">
+                        My Account
+                      </Text>
+                    </Group>
+                  </UnstyledButton>
+                  <UnstyledButton
+                    className="items"
+                    component="a"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setOpenNav(false);
+                      navigate("/user/order");
+                    }}
+                  >
+                    <Group spacing="sm">
+                      <IconPackage className="menu-item-icon" />
+                      <Text weight={600} size={15} color="blueGray.8">
+                        Orders
+                      </Text>
+                    </Group>
+                  </UnstyledButton>
+                  <UnstyledButton
+                    className="items"
+                    component="a"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setOpenNav(false);
+                      navigate("/user/account/address");
+                    }}
+                  >
+                    <Group spacing="sm">
+                      <IconAddressBook className="menu-item-icon" />
+                      <Text weight={600} size={15} color="blueGray.8">
+                        Addresses
+                      </Text>
+                    </Group>
+                  </UnstyledButton>
+                  <UnstyledButton
+                    className="items"
+                    component="a"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setOpenNav(false);
+                      navigate("/cart");
+                    }}
+                  >
+                    <Group spacing="sm">
+                      <IconShoppingCart className="menu-item-icon" />
+                      <Text weight={600} size={15} color="blueGray.8">
+                        My Cart
+                      </Text>
+                    </Group>
+                  </UnstyledButton>
+                </Stack>
+              </>
+            )}
+          </Stack>
+        </Box>
+        <Box sx={{ flex: 0 }} pb="xl">
+          <Divider mb="sm" />
           {sessionedUserData ? (
-            <ProfileHeader
-              sessionedUserData={sessionedUserData}
-              navigate={navigate}
-            />
+            <UnstyledButton
+              sx={{
+                width: "100%",
+                paddingLeft: "16px",
+                paddingRight: "16px",
+                color: "#25262b",
+                fontWeight: "600",
+                WebkitTextDecoration: "none",
+                textDecoration: "none",
+                fontSize: "18px",
+                height: "100%",
+              }}
+              onClick={() => {
+                setOpenNav(false);
+                signout();
+                navigate("/");
+              }}
+            >
+              <Group spacing="sm">
+                <IconDoorExit size={18} className="menu-item-icon" />
+                <Text weight={600} size={15} color="blueGray.8">
+                  Sign Out
+                </Text>
+              </Group>
+            </UnstyledButton>
           ) : (
-            <Group spacing={2} pb={10}>
-              <Text color="gray.0" size="sm" sx={() => ({ lineHeight: 0 })}>
-                <IconUser />
-              </Text>
-              <Text color="gray.0" size="md" weight={500}>
-                Sign in
-              </Text>
-            </Group>
+            <UnstyledButton
+              sx={{
+                width: "100%",
+                paddingLeft: "16px",
+                paddingRight: "16px",
+                color: "#25262b",
+                fontWeight: "600",
+                WebkitTextDecoration: "none",
+                textDecoration: "none",
+                fontSize: "18px",
+                height: "100%",
+              }}
+              onClick={() => {
+                setOpenNav(false);
+                navigate("/sign-in");
+              }}
+            >
+              <Group spacing="sm">
+                <IconDoorEnter size={18} className="menu-item-icon" />
+                <Text weight={600} size={15} color="blueGray.8">
+                  Sign in
+                </Text>
+              </Group>
+            </UnstyledButton>
           )}
         </Box>
       </Box>
-      <Box className="drawer-menu">
-        <Link className="items" to="/">
-          <Text weight={600} size="sm">
-            Home
-          </Text>
-        </Link>
 
-        <Box
-          className="items"
-          sx={() => ({ cursor: "pointer" })}
-          onClick={() => {
-            setOpen(false);
-            setOpenDeptDrawer(true);
-            deptNavRef.current = true;
-          }}
-        >
-          <Group position="apart">
-            <Text weight={600} size="sm">
-              Departments
-            </Text>
-            <Text color="dark.6" sx={() => ({ lineHeight: 0 })}>
-              <IconChevronRight />
-            </Text>
-          </Group>
-        </Box>
-
-        {/* <Accordion className="accordion-drawer">
-        <Accordion.Item value="customization">
-          <Accordion.Control>Customization</Accordion.Control>
-          <Accordion.Panel>
-            Colors, fonts, shadows and many other parts are customizable
-            to fit your design needs
-          </Accordion.Panel>
-        </Accordion.Item>
-      </Accordion> */}
-      </Box>
       {/* Drawer content */}
     </Drawer>
   );
 };
 
 const ProfileHeader = ({ sessionedUserData, signout, navigate }) => {
-  const [open, setOpen] = useState(false);
+  const [openNav, setOpenNav] = useState(false);
   return (
     <Menu
       width={260}
       position="bottom-end"
       transition="pop-top-right"
-      opened={open}
-      onChange={setOpen}
+      opened={openNav}
+      onChange={setOpenNav}
     >
       <Menu.Target>
         <Box
@@ -485,7 +645,7 @@ const ProfileHeader = ({ sessionedUserData, signout, navigate }) => {
         </Menu.Item>
         <Menu.Item
           component={Link}
-          to="/addresses"
+          to="/user/account/address"
           icon={<IconAddressBook size={16} stroke={1.5} />}
         >
           <Text weight={500} size="sm" color="dark.4">

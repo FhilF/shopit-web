@@ -96,9 +96,33 @@ function CreateAccount({ setShowEmailVeriSent }) {
       });
   };
   return (
-    <Box>
+    <Box
+      sx={(theme) => ({
+        ".grid-col-1": {
+          display: "none",
+        },
+        ".gril-col-2": {
+          div: {
+            justifyContent: "center",
+          },
+        },
+        [theme.fn.largerThan("sm")]: {
+          ".grid-col-1": {
+            display: "block",
+          },
+          ".gril-col-2": {
+            ".sign-in-container": {
+              justifyContent: "flex-end",
+              ".sign-in-content": {
+                width: "400px",
+              },
+            },
+          },
+        },
+      })}
+    >
       <Grid>
-        <Grid.Col span={7}>
+        <Grid.Col className="grid-col-1" span={7} sm={5} md={7}>
           <Box>
             <Box
               sx={(theme) => ({
@@ -119,7 +143,7 @@ function CreateAccount({ setShowEmailVeriSent }) {
             </Box>
           </Box>
         </Grid.Col>
-        <Grid.Col span={5} px="xl">
+        <Grid.Col className="gril-col-2" span={12} sm={7} md={5} px="xl">
           <Paper mt={60} shadow="lg" radius="xs" p="xl">
             <form
               onSubmit={(e) => {
@@ -213,18 +237,16 @@ function CreateAccount({ setShowEmailVeriSent }) {
                       navigate("/sign-in");
                     }}
                     disabled={isFormLoading}
-                    sx={{":disabled":{
-                      "div":{
-                        color:"#a3a3a3"
+                    sx={{
+                      ":disabled": {
+                        div: {
+                          color: "#a3a3a3",
+                        },
+                        cursor: "default",
                       },
-                      cursor:"default"
-                    }}}
+                    }}
                   >
-                    <Text
-                      color="yellow.8"
-                      size="sm"
-                      weight={600}
-                    >
+                    <Text color="yellow.8" size="sm" weight={600}>
                       Sign in
                     </Text>
                   </UnstyledButton>

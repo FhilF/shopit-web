@@ -6,7 +6,7 @@ function EmptyReview() {
   return (
     <Flex align="center" sx={{ flexDirection: "column" }}>
       <Text color="blueGray.4" size="sm">
-        You haven't added a review to your order/s.
+        No review available
       </Text>
     </Flex>
   );

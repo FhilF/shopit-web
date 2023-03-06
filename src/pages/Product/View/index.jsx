@@ -229,7 +229,7 @@ const ProductPreview = (props) => {
     <Paper radius="xs" withBorder>
       <Box p="xl">
         <Grid>
-          <Grid.Col span={5}>
+          <Grid.Col span={12} md={5}>
             <Stack>
               <Box>
                 {productImagePreview && (
@@ -279,9 +279,13 @@ const ProductPreview = (props) => {
               </Box>
             </Stack>
           </Grid.Col>
-          <Grid.Col span={7}>
+          <Grid.Col span={12} md={7}>
             {product && (
-              <Box ml="xl">
+              <Box
+                sx={(theme) => ({
+                  [theme.fn.largerThan("md")]: { marginLeft: "24px" },
+                })}
+              >
                 <Stack spacing={4}>
                   <Text
                     size={22}

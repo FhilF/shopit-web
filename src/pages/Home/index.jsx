@@ -50,14 +50,34 @@ const Hero = ({ sessionedUserData, setOpenDeptDrawer }) => {
             right: 0,
           }}
         >
-          <Flex justify="center" align="center" sx={{ height: "100%" }}>
+          <Flex
+            justify="center"
+            align="center"
+            sx={(theme) => ({
+              height: "100%",
+              [theme.fn.smallerThan("sm")]: {
+                ".hero-button": {
+                  paddingLeft: "8px",
+                  paddingRight: "8px",
+                  fontSize: "12px",
+                  height: "24px",
+                },
+              },
+            })}
+          >
             <Group mt={150}>
               {!sessionedUserData && (
-                <Button variant="subtle" color="dark.4" size="md">
+                <Button
+                  className="hero-button"
+                  variant="subtle"
+                  color="dark.4"
+                  size="md"
+                >
                   Register
                 </Button>
               )}
               <Button
+                className="hero-button"
                 color="yellow.8"
                 size="md"
                 onClick={() => setOpenDeptDrawer(true)}

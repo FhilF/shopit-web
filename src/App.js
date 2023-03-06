@@ -11,7 +11,6 @@ import {
   useNavigate,
 } from "react-router-dom";
 import { useAuth } from "utils/authProvider";
-import { Box, Modal } from "@mantine/core";
 import GlobalLayout from "layouts/Global";
 import ProfileLayout from "layouts/Profile";
 
@@ -31,13 +30,9 @@ import Verify from "pages/verification/Verify";
 import AccountSetup from "pages/AccountSetup";
 import DialogEmailVerificationSent from "components/DialogEmailVerificationSent";
 import Guide from "pages/Guide";
-import { apiServer } from "config";
-import { isProduction } from "config";
 import { nodeEnv } from "config";
 function App() {
   const { getSessionedUser, sessionedUserData, signout } = useAuth();
-  const navigate = useNavigate();
-  const location = useLocation();
 
   const [openDeptDrawer, setOpenDeptDrawer] = useState(false);
   const [departments, setDepartments] = useState([]);

@@ -21,13 +21,34 @@ const useStyles = createStyles((theme) => ({
           height: "40px",
         },
         ".burger": {
-          [theme.fn.largerThan("sm")]: {
+          [theme.fn.largerThan("md")]: {
             display: "none",
+          },
+        },
+        ".menu-m": {
+          height: "100%",
+          [theme.fn.largerThan("md")]: {
+            display: "none",
+          },
+          ".items": {
+            color: theme.colors.gray[0],
+            fontWeight: 500,
+            textDecoration: "none",
+            fontSize: "14px",
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+            paddingLeft: "8px",
+            paddingRight: "8px",
+            ":hover": {
+              background: theme.colors.dark[7],
+            },
+            // letterSpacing: ".5px",
           },
         },
         ".menu": {
           height: "100%",
-          [theme.fn.smallerThan("sm")]: {
+          [theme.fn.smallerThan("md")]: {
             display: "none",
           },
           ".items": {
@@ -89,7 +110,10 @@ const useStyles = createStyles((theme) => ({
         paddingLeft: "16px",
         paddingRight: "16px",
         ".logo": {
-          height: "55px",
+          height: "40px",
+          // [theme.fn.largerThan("sm")]: {
+          //   height: "55px",
+          // },
         },
       },
       ".sub-drawer-header": {
@@ -106,13 +130,14 @@ const useStyles = createStyles((theme) => ({
         ".items": {
           paddingLeft: "16px",
           paddingRight: "16px",
-          paddingTop: "12px",
-          paddingBottom: "12px",
           color: theme.colors.dark[6],
           fontWeight: 600,
           textDecoration: "none",
-          fontSize: theme.fontSizes.md,
+          fontSize: theme.fontSizes.lg,
           height: "100%",
+          ".menu-item-icon": {
+            color: theme.colors.blueGray[6],
+          },
         },
 
         ".accordion-drawer": {
@@ -122,12 +147,12 @@ const useStyles = createStyles((theme) => ({
         },
       },
     },
-    [theme.fn.largerThan("sm")]: {
+    [theme.fn.largerThan("md")]: {
       display: "none",
     },
   },
   secondaryDrawer: {
-    [theme.fn.largerThan("sm")]: {
+    [theme.fn.largerThan("md")]: {
       display: "block",
     },
   },

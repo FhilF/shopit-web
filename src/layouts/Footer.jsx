@@ -56,7 +56,11 @@ function Footer() {
                     className="footer-link"
                     color="yellow.7"
                     component="a"
-                    href={isProduction ? "https://seller.shopit-demo.com" : "http://localhost:3001/"}
+                    href={
+                      isProduction
+                        ? "https://seller.shopit-demo.com"
+                        : "http://localhost:3001/"
+                    }
                   >
                     <Text size="sm">Seller Portal</Text>
                   </UnstyledButton>
@@ -91,13 +95,22 @@ function Footer() {
                     Links
                   </Text>
                   <Group spacing="sm">
-                    <UnstyledButton className="contact-icon">
-                      <IconWorld />
-                    </UnstyledButton>
-                    <UnstyledButton className="contact-icon">
+                    <UnstyledButton
+                      className="contact-icon"
+                      component="a"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href="https://linkedin.com/in/fhilip-fernandez"
+                    >
                       <IconBrandGithub />
                     </UnstyledButton>
-                    <UnstyledButton className="contact-icon">
+                    <UnstyledButton
+                      className="contact-icon"
+                      component="a"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href="https://github.com/fhilf"
+                    >
                       <IconBrandLinkedin />
                     </UnstyledButton>
                   </Group>
@@ -125,7 +138,7 @@ function Footer() {
           component="a"
           target="_blank"
           rel="noopener noreferrer"
-          href="https://stackoverflow.com/"
+          href="https://linkedin.com/in/fhilip-fernandez"
           sx={(theme) => ({
             color: theme.colors.yellow[8],
             textDecoration: "underline",
